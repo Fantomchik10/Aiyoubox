@@ -6,6 +6,7 @@
     --light: #F8FAFC;
     --gray: #64748B;
     --border: #E2E8F0;
+    --telegram: #0088cc;
 }
 
 * {
@@ -30,7 +31,8 @@ body {
 }
 
 section {
-    padding: 80px 0;
+    padding: 60px 0;
+    scroll-margin-top: 100px;
 }
 
 h1 {
@@ -41,9 +43,9 @@ h1 {
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     text-align: center;
     position: relative;
 }
@@ -61,7 +63,7 @@ h2:after {
 }
 
 h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 15px;
 }
 
@@ -85,7 +87,7 @@ p {
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     border: none;
     cursor: pointer;
     font-size: 1.1rem;
@@ -131,7 +133,6 @@ header {
     overflow: hidden;
 }
 
-/* Лицо коробки */
 .logo-icon:before,
 .logo-icon:after {
     content: "";
@@ -149,7 +150,6 @@ header {
         -30px 0 0 white;
 }
 
-/* Ручки */
 .logo-icon:after {
     width: 10px;
     height: 10px;
@@ -185,10 +185,30 @@ nav a:hover {
     color: var(--primary);
 }
 
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.telegram-header-btn {
+    background: var(--telegram);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 15px;
+}
+
+.telegram-header-btn:hover {
+    background: #0077b3;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 136, 204, 0.3);
+}
+
 /* Главный экран */
 .hero {
     background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
-    padding: 120px 0;
+    padding: 100px 0;
     position: relative;
     overflow: hidden;
 }
@@ -200,42 +220,74 @@ nav a:hover {
 }
 
 /* Что мы делаем */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
+.services {
+    background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: 0 0;
 }
 
-.service-card {
+.compact-services {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.service-step {
     background: white;
-    border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-    border: 1px solid var(--border);
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-}
-
-.icon-box {
-    width: 60px;
-    height: 60px;
-    background: rgba(79, 70, 229, 0.1);
     border-radius: 12px;
+    padding: 20px;
+    width: 200px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease;
+}
+
+.service-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.step-number {
+    background: var(--primary);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    font-weight: bold;
 }
 
-.icon-box svg {
-    width: 30px;
-    height: 30px;
-    fill: var(--primary);
+.step-icon {
+    font-size: 1.8rem;
+}
+
+.step-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.step-content p {
+    font-size: 0.95rem;
+    color: var(--gray);
+}
+
+.step-divider {
+    display: flex;
+    align-items: center;
+    color: var(--gray);
+    font-size: 1.5rem;
+    padding: 0 5px;
 }
 
 /* Тарифы */
@@ -317,27 +369,58 @@ nav a:hover {
     background: white;
 }
 
-.features {
+.value-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.feature {
+.value-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     display: flex;
     gap: 20px;
     align-items: flex-start;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
 }
 
-.feature-icon {
-    font-size: 1.5rem;
-    min-width: 40px;
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: var(--primary);
 }
 
-.feature-text h3 {
-    margin-bottom: 5px;
+.value-icon {
+    font-size: 2rem;
+    min-width: 50px;
+    height: 50px;
+    background: rgba(79, 70, 229, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.value-card:hover .value-icon {
+    background: var(--primary);
+    color: white;
+}
+
+.value-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+}
+
+.value-content p {
+    font-size: 0.95rem;
+    margin-bottom: 0;
 }
 
 /* FAQ */
@@ -400,6 +483,23 @@ nav a:hover {
     margin: 0 auto 30px;
 }
 
+.response-promise {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.15);
+    padding: 12px 20px;
+    border-radius: 50px;
+    max-width: 500px;
+    margin: 0 auto 25px;
+}
+
+.promise-icon {
+    font-size: 1.5rem;
+}
+
 .contact-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -433,16 +533,43 @@ nav a:hover {
     flex-wrap: wrap;
 }
 
-.contact-info a {
-    color: white;
-    text-decoration: none;
+.contact-info p {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: 0;
+}
+
+.contact-info a {
+    color: white;
+    text-decoration: none;
 }
 
 .contact-info a:hover {
     text-decoration: underline;
+}
+
+.timer-container {
+    text-align: center;
+}
+
+.timer {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.telegram-btn {
+    background: var(--telegram);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.telegram-btn:hover {
+    background: #0077b3;
 }
 
 /* Футер */
@@ -494,22 +621,59 @@ footer {
     }
     
     h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .header-container {
-        flex-direction: column;
+        flex-direction: row;
         gap: 20px;
     }
     
     nav {
-        flex-wrap: wrap;
-        justify-content: center;
+        display: none;
+        position: absolute;
+        top: 90px;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        z-index: 99;
+    }
+    
+    nav.active {
+        display: flex;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    .telegram-header-btn {
+        display: none;
     }
     
     .hero {
         padding: 80px 0;
         text-align: center;
+    }
+    
+    .service-step {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .step-divider {
+        display: none;
+    }
+    
+    .pricing-card.popular {
+        transform: scale(1);
+    }
+    
+    .contact {
+        padding: 40px 20px;
     }
     
     .contact-form {
@@ -521,7 +685,33 @@ footer {
         grid-column: span 1;
     }
     
-    .pricing-card.popular {
-        transform: scale(1);
+    .response-promise {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: 12px 24px;
+        font-size: 1rem;
     }
 }
