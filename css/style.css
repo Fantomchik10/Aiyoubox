@@ -7,6 +7,7 @@
     --gray: #64748B;
     --border: #E2E8F0;
     --telegram: #0088cc;
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 * {
@@ -87,7 +88,7 @@ p {
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: var(--transition);
     border: none;
     cursor: pointer;
     font-size: 1.1rem;
@@ -121,46 +122,14 @@ header {
     gap: 15px;
 }
 
-.logo-icon {
-    width: 50px;
+.logo-img {
     height: 50px;
-    background: var(--primary);
-    border-radius: 10px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    width: auto;
+    transition: transform 0.3s ease;
 }
 
-.logo-icon:before,
-.logo-icon:after {
-    content: "";
-    position: absolute;
-    background: white;
-}
-
-.logo-icon:before {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    box-shadow: 
-        0 -30px 0 white,
-        30px 0 0 white,
-        -30px 0 0 white;
-}
-
-.logo-icon:after {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 2px solid white;
-    top: -5px;
-    left: -5px;
-    box-shadow: 
-        55px 0 0 white,
-        0 55px 0 white,
-        55px 55px 0 white;
+.logo-img:hover {
+    transform: scale(1.05);
 }
 
 .logo-text {
@@ -241,7 +210,9 @@ nav a:hover {
     width: 200px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     border: 1px solid var(--border);
-    transition: transform 0.3s ease;
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .service-step:hover {
@@ -295,6 +266,22 @@ nav a:hover {
     background: var(--light);
 }
 
+.price-list-btn-container {
+    text-align: center;
+    margin: 0 0 40px;
+}
+
+.price-list-btn {
+    background: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price-list-btn:hover {
+    background: #0da271;
+}
+
 .pricing-cards {
     display: flex;
     gap: 30px;
@@ -313,12 +300,25 @@ nav a:hover {
     max-width: 350px;
     border: 2px solid var(--border);
     position: relative;
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .pricing-card.popular {
     border-color: var(--primary);
     transform: scale(1.05);
     z-index: 1;
+}
+
+.pricing-card.popular.in-view {
+    transform: scale(1.05) translateY(0);
+}
+
+.selected-tariff {
+    border: 2px solid var(--accent) !important;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) !important;
+    transform: scale(1.03) !important;
 }
 
 .popular-badge {
@@ -386,7 +386,9 @@ nav a:hover {
     gap: 20px;
     align-items: flex-start;
     border: 1px solid var(--border);
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .value-card:hover {
@@ -487,17 +489,35 @@ nav a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 20px;
-    background: rgba(255,255,255,0.15);
-    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+    padding: 15px 25px;
     border-radius: 50px;
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto 25px;
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(5px);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.response-promise p {
+    font-size: 1.15rem;
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    margin-bottom: 0;
 }
 
 .promise-icon {
-    font-size: 1.5rem;
+    font-size: 1.8rem !important;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 .contact-form {
@@ -514,10 +534,22 @@ nav a:hover {
     border-radius: 8px;
     border: none;
     font-size: 1rem;
+    transition: var(--transition);
+    background: rgba(255,255,255,0.9);
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    outline: none;
 }
 
 .contact-form textarea {
     grid-column: span 2;
+    min-height: 100px;
+    transition: height 0.3s ease;
 }
 
 .contact-form button {
@@ -572,6 +604,20 @@ nav a:hover {
     background: #0077b3;
 }
 
+.tariff-notification {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--secondary);
+    padding: 15px 25px;
+    border-radius: 50px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
 /* Футер */
 footer {
     background: var(--secondary);
@@ -585,6 +631,22 @@ footer {
     flex-wrap: wrap;
     gap: 40px;
     margin-bottom: 40px;
+}
+
+.footer-logo .logo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.footer-logo-img {
+    height: 40px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.footer-logo-img:hover {
+    transform: scale(1.05);
 }
 
 .footer-logo .logo-text {
@@ -612,6 +674,187 @@ footer {
     padding-top: 30px;
     border-top: 1px solid rgba(255,255,255,0.1);
     color: rgba(255,255,255,0.6);
+}
+
+/* Анимация при скролле */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.service-step.in-view,
+.value-card.in-view,
+.pricing-card.in-view {
+    animation: fadeUp 0.6s ease forwards;
+}
+
+.service-step:nth-child(1) { animation-delay: 0.1s; }
+.service-step:nth-child(2) { animation-delay: 0.2s; }
+.service-step:nth-child(3) { animation-delay: 0.3s; }
+.service-step:nth-child(4) { animation-delay: 0.4s; }
+
+.value-card:nth-child(1) { animation-delay: 0.1s; }
+.value-card:nth-child(2) { animation-delay: 0.2s; }
+.value-card:nth-child(3) { animation-delay: 0.3s; }
+.value-card:nth-child(4) { animation-delay: 0.4s; }
+.value-card:nth-child(5) { animation-delay: 0.5s; }
+.value-card:nth-child(6) { animation-delay: 0.6s; }
+
+.pricing-card:nth-child(1) { animation-delay: 0.1s; }
+.pricing-card:nth-child(2) { animation-delay: 0.2s; }
+.pricing-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* Модальное окно для прайс-листа */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.modal-step {
+    text-align: center;
+}
+
+#priceRequestForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#priceRequestForm input {
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.price-table {
+    margin: 30px 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.price-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.price-table th, .price-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.price-table th {
+    background-color: var(--light);
+    font-weight: 600;
+}
+
+.download-btn {
+    background: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-btn:hover {
+    background: #0da271;
+}
+
+.privacy-text {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-top: 15px;
+}
+
+/* Стили для прайс-листа в модальном окне */
+.modal-step .price-summary {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 25px 0;
+    text-align: left;
+}
+
+.modal-step .price-summary h4 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.modal-step .price-summary ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.modal-step .price-summary li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-step .price-summary li:last-child {
+    border-bottom: none;
+}
+
+.modal-step .price-summary li strong {
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+/* Валидация формы */
+input:invalid {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+input:invalid:focus {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.5);
+}
+
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
 }
 
 /* Адаптивность */
@@ -654,6 +897,14 @@ footer {
         display: none;
     }
     
+    .logo-img {
+        height: 40px;
+    }
+    
+    .logo-text {
+        font-size: 1.5rem;
+    }
+    
     .hero {
         padding: 80px 0;
         text-align: center;
@@ -668,8 +919,22 @@ footer {
         display: none;
     }
     
+    .pricing-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .pricing-card {
+        width: 100%;
+        max-width: 350px;
+    }
+    
     .pricing-card.popular {
         transform: scale(1);
+    }
+    
+    .footer-logo-img {
+        height: 35px;
     }
     
     .contact {
@@ -691,9 +956,33 @@ footer {
         padding: 15px;
     }
     
+    .response-promise p {
+        font-size: 1rem;
+    }
+    
     .contact-info {
         flex-direction: column;
         gap: 15px;
+    }
+    
+    /* Адаптивность модального окна */
+    .modal-content {
+        width: 90%;
+    }
+    
+    .modal-step .price-summary {
+        padding: 15px;
+    }
+    
+    /* Новые стили для исправления прокрутки */
+    section {
+        scroll-margin-top: 70px;
+    }
+    
+    .contact {
+        margin: 20px auto;
+        padding: 30px 15px;
+        border-radius: 15px;
     }
 }
 
@@ -706,12 +995,33 @@ footer {
         font-size: 1.5rem;
     }
     
+    .logo {
+        gap: 10px;
+    }
+    
+    .logo-img {
+        height: 35px;
+    }
+    
     .logo-text {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
     
     .btn {
         padding: 12px 24px;
         font-size: 1rem;
+    }
+    
+    .contact {
+        padding: 30px 15px;
+    }
+    
+    .response-promise {
+        padding: 12px;
+    }
+    
+    .modal-content {
+        padding: 20px;
+        margin: 10% auto;
     }
 }

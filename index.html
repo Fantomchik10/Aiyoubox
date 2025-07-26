@@ -6,13 +6,16 @@
     <title>Aiyoubox - Фулфилмент для Wildberries, Ozon и Яндекс Маркет</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Библиотека для генерации PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
     <!-- Шапка -->
     <header>
         <div class="container header-container">
             <div class="logo">
-                <div class="logo-icon"></div>
+                <img src="images/logo/aiyoubox-logo.svg" alt="Aiyoubox" class="logo-img">
                 <div class="logo-text">Aiyoubox</div>
             </div>
             <nav>
@@ -103,6 +106,13 @@
     <section id="pricing" class="pricing">
         <div class="container">
             <h2>Наши тарифы</h2>
+            
+            <!-- Кнопка для запроса прайс-листа -->
+            <div class="price-list-btn-container">
+                <button class="btn price-list-btn" id="requestPriceBtn">
+                    <i class="fas fa-file-download"></i> Получить полный прайс-лист
+                </button>
+            </div>
             
             <div class="pricing-cards">
                 <div class="pricing-card">
@@ -291,13 +301,13 @@
             <p>Оставьте заявку — посчитаем ваш тариф, покажем процесс работы и подключим к сервису</p>
             
             <div class="response-promise">
-                <div class="promise-icon">⏱️</div>
-                <p>Гарантируем ответ в течение 5 минут в рабочее время</p>
+                <div class="promise-icon">🚀</div>
+                <p>Оставьте заявку - и свяжемся с вами через 5 минут, составим вам коммерческое предложение!</p>
             </div>
             
             <form class="contact-form">
                 <input type="text" placeholder="Ваше имя" required>
-                <input type="tel" placeholder="Телефон" required>
+                <input type="tel" placeholder="Телефон" required pattern="\+7\s?[0-9]{3}\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}" title="Формат: +7 XXX XXX XX XX">
                 <input type="email" placeholder="Email" required>
                 <select required>
                     <option value="" disabled selected>Основной маркетплейс</option>
@@ -306,7 +316,7 @@
                     <option value="yandex">Яндекс Маркет</option>
                     <option value="other">Другой</option>
                 </select>
-                <textarea placeholder="Что вы продаёте?" rows="3"></textarea>
+                <textarea placeholder="Расскажите о вашем товаре и требованиях" rows="3"></textarea>
                 <button type="submit" class="btn">Получить расчёт</button>
             </form>
             
@@ -324,7 +334,7 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <div class="logo">
-                        <div class="logo-icon"></div>
+                        <img src="images/logo/aiyoubox-logo.svg" alt="Aiyoubox" class="footer-logo-img">
                         <div class="logo-text">Aiyoubox</div>
                     </div>
                     <p>Фулфилмент для маркетплейсов</p>
@@ -343,6 +353,47 @@
             </div>
         </div>
     </footer>
+
+    <!-- Модальное окно для прайс-листа -->
+    <div id="priceListModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+            <!-- Шаг 1: Форма -->
+            <div id="formStep" class="modal-step">
+                <h3>Получить полный прайс-лист</h3>
+                <p>Пожалуйста, представьтесь и укажите телефон для получения прайс-листа</p>
+                
+                <form id="priceRequestForm">
+                    <input type="text" id="userName" placeholder="Ваше имя" required>
+                    <input type="tel" id="userPhone" placeholder="Ваш телефон" required pattern="\+7\s?[0-9]{3}\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}" title="Формат: +7 XXX XXX XX XX">
+                    <button type="submit" class="btn">Получить прайс</button>
+                    <p class="privacy-text">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+                </form>
+            </div>
+            
+            <!-- Шаг 2: Прайс-лист -->
+            <div id="priceStep" class="modal-step" style="display: none;">
+                <h3>Прайс-лист Aiyoubox</h3>
+                <div class="price-summary">
+                    <h4>Основные услуги:</h4>
+                    <ul>
+                        <li><strong>Приёмка товара:</strong> 4–12 ₽ / шт.</li>
+                        <li><strong>Хранение коробки:</strong> 50 ₽ / сутки</li>
+                        <li><strong>Упаковка в коробку:</strong> 18–25 ₽ / шт.</li>
+                        <li><strong>Маркировка:</strong> 4–9 ₽ / шт.</li>
+                        <li><strong>Отгрузка на маркетплейс:</strong> 100–950 ₽ / короб</li>
+                        <li><strong>Фото-контент:</strong> от 1000 ₽</li>
+                        <li><strong>Приём возврата:</strong> 9–15 ₽ / шт.</li>
+                    </ul>
+                    <p>Полный прайс-лист содержит более 100 позиций с детальными условиями</p>
+                </div>
+                <button class="btn download-btn" id="downloadPdfBtn">
+                    <i class="fas fa-download"></i> Скачать полный прайс (PDF)
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
