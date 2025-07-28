@@ -48,6 +48,9 @@ if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        
         const responsePromise = document.querySelector('.response-promise');
         
         // Показываем таймер
@@ -59,14 +62,16 @@ if (contactForm) {
         `;
         
         // Запускаем таймер
-        let timeLeft = 5 * 60; // 5 минут в секундах
+        let timeLeft = 5 * 60;
         const timer = setInterval(() => {
             timeLeft--;
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
             
-            document.querySelector('.timer').textContent = 
-                `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            const timerEl = document.querySelector('.timer');
+            if (timerEl) {
+                timerEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            }
             
             if (timeLeft <= 0) {
                 clearInterval(timer);
@@ -75,7 +80,7 @@ if (contactForm) {
                     <p>Пожалуйста, свяжитесь с нами в Telegram</p>
                 `;
                 
-                // Добавляем кнопку для перехода в Telegram
+                // Добавляем кнопку Telegram
                 const telegramLink = document.createElement('a');
                 telegramLink.href = 'https://t.me/Aiyoubox';
                 telegramLink.target = '_blank';
@@ -88,10 +93,11 @@ if (contactForm) {
             }
         }, 1000);
         
-        // Здесь должна быть реальная логика отправки
+        // Имитация отправки формы
         setTimeout(() => {
             alert('Спасибо! Мы свяжемся с вами в течение 5 минут.');
             this.reset();
+            submitButton.disabled = false;
         }, 1500);
     });
 }
@@ -129,22 +135,24 @@ document.querySelectorAll('.pricing-card .btn').forEach(button => {
         const tariffName = card.querySelector('h3').textContent;
         const tariffPrice = card.querySelector('.price').textContent;
         
+        // Закрываем мобильное меню перед прокруткой
+        if (window.innerWidth <= 768) {
+            document.querySelector('nav').classList.remove('active');
+        }
+        
         // Прокрутка к форме контактов
         const contactSection = document.getElementById('contact');
         if (contactSection) {
-            // Рассчитываем корректный отступ для мобильных устройств
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const offset = window.innerWidth <= 768 ? headerHeight : headerHeight + 20;
-            
-            window.scrollTo({
-                top: contactSection.offsetTop - offset,
-                behavior: 'smooth'
-            });
-            
-            // Закрываем мобильное меню после клика
-            if (window.innerWidth <= 768) {
-                document.querySelector('nav').classList.remove('active');
-            }
+            // Ждем обновления DOM
+            setTimeout(() => {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const offset = window.innerWidth <= 768 ? headerHeight : headerHeight + 20;
+                
+                window.scrollTo({
+                    top: contactSection.offsetTop - offset,
+                    behavior: 'smooth'
+                });
+            }, 50);
         }
         
         // Установка фокуса на поле имени
@@ -182,21 +190,6 @@ document.querySelectorAll('.pricing-card .btn').forEach(button => {
         }, 3000);
     });
 });
-
-// Анимация при скролле
-function checkScroll() {
-    document.querySelectorAll('.service-step, .value-card, .pricing-card').forEach((el, index) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.8 && !el.classList.contains('in-view')) {
-            setTimeout(() => {
-                el.classList.add('in-view');
-            }, index * 100);
-        }
-    });
-}
-
-window.addEventListener('scroll', checkScroll);
-window.addEventListener('load', checkScroll);
 
 // Модальное окно для прайс-листа
 document.getElementById('requestPriceBtn').addEventListener('click', function() {

@@ -211,13 +211,6 @@ nav a:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     border: 1px solid var(--border);
     transition: var(--transition);
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.service-step:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
 .step-header {
@@ -301,18 +294,12 @@ nav a:hover {
     border: 2px solid var(--border);
     position: relative;
     transition: var(--transition);
-    opacity: 0;
-    transform: translateY(20px);
 }
 
 .pricing-card.popular {
     border-color: var(--primary);
     transform: scale(1.05);
     z-index: 1;
-}
-
-.pricing-card.popular.in-view {
-    transform: scale(1.05) translateY(0);
 }
 
 .selected-tariff {
@@ -387,14 +374,6 @@ nav a:hover {
     align-items: flex-start;
     border: 1px solid var(--border);
     transition: var(--transition);
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.value-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    border-color: var(--primary);
 }
 
 .value-icon {
@@ -408,11 +387,6 @@ nav a:hover {
     justify-content: center;
     padding: 10px;
     transition: all 0.3s ease;
-}
-
-.value-card:hover .value-icon {
-    background: var(--primary);
-    color: white;
 }
 
 .value-content h3 {
@@ -675,40 +649,6 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.1);
     color: rgba(255,255,255,0.6);
 }
-
-/* Анимация при скролле */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.service-step.in-view,
-.value-card.in-view,
-.pricing-card.in-view {
-    animation: fadeUp 0.6s ease forwards;
-}
-
-.service-step:nth-child(1) { animation-delay: 0.1s; }
-.service-step:nth-child(2) { animation-delay: 0.2s; }
-.service-step:nth-child(3) { animation-delay: 0.3s; }
-.service-step:nth-child(4) { animation-delay: 0.4s; }
-
-.value-card:nth-child(1) { animation-delay: 0.1s; }
-.value-card:nth-child(2) { animation-delay: 0.2s; }
-.value-card:nth-child(3) { animation-delay: 0.3s; }
-.value-card:nth-child(4) { animation-delay: 0.4s; }
-.value-card:nth-child(5) { animation-delay: 0.5s; }
-.value-card:nth-child(6) { animation-delay: 0.6s; }
-
-.pricing-card:nth-child(1) { animation-delay: 0.1s; }
-.pricing-card:nth-child(2) { animation-delay: 0.2s; }
-.pricing-card:nth-child(3) { animation-delay: 0.3s; }
 
 /* Модальное окно для прайс-листа */
 .modal {
@@ -1023,5 +963,12 @@ input:invalid:focus {
     .modal-content {
         padding: 20px;
         margin: 10% auto;
+    }
+}
+
+/* Дополнительные исправления для мобильной прокрутки */
+@media (max-width: 768px) {
+    section#contact {
+        scroll-margin-top: 80px !important;
     }
 }
