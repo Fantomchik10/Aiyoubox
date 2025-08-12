@@ -259,22 +259,6 @@ nav a:hover {
     background: var(--light);
 }
 
-.price-list-btn-container {
-    text-align: center;
-    margin: 0 0 40px;
-}
-
-.price-list-btn {
-    background: var(--accent);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.price-list-btn:hover {
-    background: #0da271;
-}
-
 .pricing-cards {
     display: flex;
     gap: 30px;
@@ -349,6 +333,25 @@ nav a:hover {
     width: 20px;
     height: 20px;
     fill: var(--accent);
+}
+
+/* КНОПКИ ТАРИФОВ - ИСПРАВЛЕННЫЕ СТИЛИ */
+.pricing-card .btn {
+    background: var(--primary);
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.pricing-card .btn:hover {
+    background: #4338CA;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
 }
 
 /* Почему мы */
@@ -650,135 +653,6 @@ footer {
     color: rgba(255,255,255,0.6);
 }
 
-/* Модальное окно для прайс-листа */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 1000;
-    overflow: auto;
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 5% auto;
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 600px;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.close {
-    position: absolute;
-    top: 15px;
-    right: 25px;
-    font-size: 30px;
-    color: #aaa;
-    cursor: pointer;
-}
-
-.close:hover {
-    color: #000;
-}
-
-.modal-step {
-    text-align: center;
-}
-
-#priceRequestForm {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-#priceRequestForm input {
-    padding: 15px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.price-table {
-    margin: 30px 0;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.price-table table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.price-table th, .price-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-}
-
-.price-table th {
-    background-color: var(--light);
-    font-weight: 600;
-}
-
-.download-btn {
-    background: var(--accent);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.download-btn:hover {
-    background: #0da271;
-}
-
-.privacy-text {
-    font-size: 0.9rem;
-    color: var(--gray);
-    margin-top: 15px;
-}
-
-/* Стили для прайс-листа в модальном окне */
-.modal-step .price-summary {
-    background: #f8fafc;
-    border-radius: 12px;
-    padding: 25px;
-    margin: 25px 0;
-    text-align: left;
-}
-
-.modal-step .price-summary h4 {
-    color: var(--primary);
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-}
-
-.modal-step .price-summary ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.modal-step .price-summary li {
-    padding: 8px 0;
-    border-bottom: 1px dashed #e2e8f0;
-    display: flex;
-    justify-content: space-between;
-}
-
-.modal-step .price-summary li:last-child {
-    border-bottom: none;
-}
-
-.modal-step .price-summary li strong {
-    color: var(--secondary);
-    font-weight: 600;
-}
-
 /* Валидация формы */
 input:invalid {
     border-color: #ff6b6b;
@@ -905,15 +779,6 @@ input:invalid:focus {
         gap: 15px;
     }
     
-    /* Адаптивность модального окна */
-    .modal-content {
-        width: 90%;
-    }
-    
-    .modal-step .price-summary {
-        padding: 15px;
-    }
-    
     /* Новые стили для исправления прокрутки */
     section {
         scroll-margin-top: 70px;
@@ -960,9 +825,10 @@ input:invalid:focus {
         padding: 12px;
     }
     
-    .modal-content {
-        padding: 20px;
-        margin: 10% auto;
+    /* Адаптация кнопок тарифов на мобильных */
+    .pricing-card .btn {
+        padding: 12px 20px;
+        font-size: 1rem;
     }
 }
 
